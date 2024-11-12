@@ -1,37 +1,38 @@
 import { Button, Checkbox, FormControlLabel, Typography } from "@mui/material";
 import { useState } from "react";
+
 import { InputField } from "../../inputField";
 import "./SignIn.css";
 
-export const SignIn = ({onClickLogInHandler}) => {
+export const SignIn = ({ onClickLogInHandler }) => {
   const [isRememberMeChecked, setIsRememberMeChecked] = useState(false);
   const [loginDetails, setLoginDetails] = useState({
     username: "",
-    password: ""
-  })
+    password: "",
+  });
 
   const onChangeCheckbox = (event) => {
     setIsRememberMeChecked(event.target.checked);
   };
 
   const onClickHandler = () => {
-    alert(`${loginDetails.password} ${loginDetails.username}`)
-    onClickLogInHandler?.(loginDetails)
-  }
+    alert(`${loginDetails.password} ${loginDetails.username}`);
+    onClickLogInHandler?.(loginDetails);
+  };
 
   const onChangeUsernameHandler = (event) => {
-    setLoginDetails((prevValue)=> ({
+    setLoginDetails((prevValue) => ({
       ...prevValue,
-      username: event.target.value
-    }))
-  }
+      username: event.target.value,
+    }));
+  };
 
   const onChangePasswordHandler = (event) => {
-    setLoginDetails((prevValue)=> ({
+    setLoginDetails((prevValue) => ({
       ...prevValue,
-      password: event.target.value
-    }))
-  }
+      password: event.target.value,
+    }));
+  };
 
   return (
     <div className="signin-container">
@@ -77,7 +78,13 @@ export const SignIn = ({onClickLogInHandler}) => {
           Forgot Password ?
         </Typography>
       </div>
-      <Button variant="contained" className="signin-btn" onClick={onClickHandler}>Login</Button>
+      <Button
+        variant="contained"
+        className="signin-btn"
+        onClick={onClickHandler}
+      >
+        Login
+      </Button>
     </div>
   );
 };

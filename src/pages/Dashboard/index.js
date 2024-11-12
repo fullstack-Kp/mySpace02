@@ -1,16 +1,10 @@
-import DashboardCard from "./components/DashboardCards"
-import { MdSchedule } from "react-icons/md";
-import { CiCreditCard1 } from "react-icons/ci";
-import { MdOutlineAttachMoney } from "react-icons/md";
+import { MdSchedule, MdOutlineAttachMoney, MdMood } from "react-icons/md";
 import { GiHobbitDwelling } from "react-icons/gi";
-import { MdMood } from "react-icons/md";
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import { useState } from "react";
-import { BsThreeDotsVertical } from "react-icons/bs";
-import Button from '@mui/material/Button';
+
 import CustomCardPage from "../CustomCardPage";
 
+import DashboardCard from "./components/DashboardCards";
 
 export const data = [
   ["Year", "Sales", "Expenses"],
@@ -20,27 +14,16 @@ export const data = [
   ["2016", 1030, 540],
 ];
 
-
 export const options = {
- 
-  'backgroundColor' : 'transparent',
-  legendTextStyle: { color: '#FFF' },
-    titleTextStyle: { color: '#FFF' },
-    hAxis: {
-      color: '#FFF',
-    }
+  backgroundColor: "transparent",
+  legendTextStyle: { color: "#FFF" },
+  titleTextStyle: { color: "#FFF" },
+  hAxis: {
+    color: "#FFF",
+  },
 };
 
-
-
-
 const Dashboard = () => {
-
- 
-
-
-
-
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -50,13 +33,11 @@ const Dashboard = () => {
     setAnchorEl(null);
   };
 
-
   const ITEM_HEIGHT = 48;
-
-
 
   const [customCardConfig, setCustomCardConfig] = useState({
     color: ["#e1950e", "#f3cd29"],
+    // eslint-disable-next-line react/react-in-jsx-scope
     icon: <MdMood />,
     title: "Customizable Card",
     subtitle: "Track your own data",
@@ -64,36 +45,61 @@ const Dashboard = () => {
     //   { label: "Last Week Schedule", action: () => console.log("Last Week Schedule") },
     //   { label: "Last Day Schedule", action: () => console.log("Last Day Schedule") },
     // ],
-    options:[
-      { label: "Show Last Week Data", action: () => console.log("Showing last week's data") },
-      { label: "Show Last Month Data", action: () => console.log("Showing last month's data") },
+    options: [
+      {
+        label: "Show Last Week Data",
+        action: () => console.log("Showing last week's data"),
+      },
+      {
+        label: "Show Last Month Data",
+        action: () => console.log("Showing last month's data"),
+      },
       { label: "Reset Data", action: () => console.log("Data reset") },
     ],
   });
 
-
-
-  return(
+  return (
     <>
-     <div className="right-content w-100">
-      <div className="row dashboardBoxWrapperRow">
-        <div className="col-md-8">
-          <div className="dashboardBoxWrapper d-flex">
-            <DashboardCard color={["#1da256" , "#48d483"]} icon={<MdSchedule/>} grow={true} title="My Schedule" subtitle="Schedule Records" route="/schedule"/>
-            <DashboardCard color={["#C012e2" , "#eb64fe"]} icon={<MdOutlineAttachMoney/>} title="Finance Tracker"
-                    subtitle="Finance Records" route="/finance-tracker" />
-            <DashboardCard color={["#2c78e5" , "#60aff5"]} icon={<GiHobbitDwelling/>} title="Habit Tracker"
-                    subtitle="habit records" route="/habit-tracker"/>
-            <DashboardCard color={["#e1950e" , "#f3cd29"]} icon={<MdMood/>} title="Mood Tracker"
-                    subtitle="mood records"  route="/mood-card"/>
-            {/* <CustomCardPage color={["#e1950e" , "#f3cd29"]} icon={<MdMood/>} title="Mood Tracker"
+      <div className="right-content w-100">
+        <div className="row dashboardBoxWrapperRow">
+          <div className="col-md-8">
+            <div className="dashboardBoxWrapper d-flex">
+              <DashboardCard
+                color={["#1da256", "#48d483"]}
+                icon={<MdSchedule />}
+                grow={true}
+                title="My Schedule"
+                subtitle="Schedule Records"
+                route="/schedule"
+              />
+              <DashboardCard
+                color={["#C012e2", "#eb64fe"]}
+                icon={<MdOutlineAttachMoney />}
+                title="Finance Tracker"
+                subtitle="Finance Records"
+                route="/finance-tracker"
+              />
+              <DashboardCard
+                color={["#2c78e5", "#60aff5"]}
+                icon={<GiHobbitDwelling />}
+                title="Habit Tracker"
+                subtitle="habit records"
+                route="/habit-tracker"
+              />
+              <DashboardCard
+                color={["#e1950e", "#f3cd29"]}
+                icon={<MdMood />}
+                title="Mood Tracker"
+                subtitle="mood records"
+                route="/mood-card"
+              />
+              {/* <CustomCardPage color={["#e1950e" , "#f3cd29"]} icon={<MdMood/>} title="Mood Tracker"
                     subtitle="mood records"  route="/mood-card"/> */}
-           </div>
-        </div>
+            </div>
+          </div>
 
-
-        <div className="col-md-4 pl-0">
-        {/* <div className="box graphBox">
+          <div className="col-md-4 pl-0">
+            {/* <div className="box graphBox">
         <div className="d-flex align-items-center w-100 bottomEle">
         <h6 className="text-white mb-0 mt-0">Your Own Card</h6>
         <div className="d-flex w-100">
@@ -129,27 +135,18 @@ const Dashboard = () => {
         </div>
       
         </div> */}
-        <CustomCardPage
+            <CustomCardPage
               color={customCardConfig.color}
               icon={customCardConfig.icon}
               title={customCardConfig.title}
               subtitle={customCardConfig.subtitle}
               options={customCardConfig.options}
             />
+          </div>
+        </div>
       </div>
-      </div>
-
-
-
-
-
-    
-
-     
-      
-     </div>
     </>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;

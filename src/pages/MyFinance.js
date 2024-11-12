@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Card, Typography, Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
+import {
+  Card,
+  Typography,
+  Button,
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
 import { MdAttachMoney } from "react-icons/md";
 import { Container, Row, Col } from "react-bootstrap";
 
@@ -9,12 +18,15 @@ const FinancePage = () => {
   const [monthlyBudget, setMonthlyBudget] = useState(15000); // Default monthly budget
   const [expenses, setExpenses] = useState([
     { name: "Groceries", amount: 50 },
-    { name: "Transport", amount: 20 }
+    { name: "Transport", amount: 20 },
   ]);
   const [openBudgetDialog, setOpenBudgetDialog] = useState(false);
   const [budgetType, setBudgetType] = useState("daily");
 
-  const totalDailyExpense = expenses.reduce((acc, curr) => acc + curr.amount, 0);
+  const totalDailyExpense = expenses.reduce(
+    (acc, curr) => acc + curr.amount,
+    0
+  );
   const totalWeeklyExpense = totalDailyExpense * 7; // Approximation for demo purposes
   const totalMonthlyExpense = totalDailyExpense * 30; // Approximation for demo purposes
 
@@ -29,7 +41,14 @@ const FinancePage = () => {
     if (totalMonthlyExpense > monthlyBudget) {
       alert("You've exceeded your monthly budget!");
     }
-  }, [totalDailyExpense, totalWeeklyExpense, totalMonthlyExpense, dailyBudget, weeklyBudget, monthlyBudget]);
+  }, [
+    totalDailyExpense,
+    totalWeeklyExpense,
+    totalMonthlyExpense,
+    dailyBudget,
+    weeklyBudget,
+    monthlyBudget,
+  ]);
 
   const handleBudgetChange = (type, value) => {
     if (type === "daily") setDailyBudget(value);
@@ -48,8 +67,15 @@ const FinancePage = () => {
 
   return (
     <Container className="mt-4">
-      <Card className="p-4" style={{ backgroundColor: "#fbe9e7", color: "#b71c1c", width: '100%' }}>
-        <Typography variant="h4" className="mb-4 d-flex align-items-center" sx={{ lineHeight: 5.235 }}>
+      <Card
+        className="p-4"
+        style={{ backgroundColor: "#fbe9e7", color: "#b71c1c", width: "100%" }}
+      >
+        <Typography
+          variant="h4"
+          className="mb-4 d-flex align-items-center"
+          sx={{ lineHeight: 5.235 }}
+        >
           <MdAttachMoney className="me-2" /> Finance Tracker
         </Typography>
         <Row>
@@ -57,19 +83,33 @@ const FinancePage = () => {
             <Typography variant="h6">Recent Expenses</Typography>
             <ul className="list-unstyled">
               {expenses.map((expense, index) => (
-                <li key={index}>{expense.name} - ₹{expense.amount}</li>
+                <li key={index}>
+                  {expense.name} - ₹{expense.amount}
+                </li>
               ))}
             </ul>
           </Col>
           <Col md={6}>
             <Typography variant="h6">Budget Settings</Typography>
-            <Button variant="contained" color="secondary" onClick={() => handleOpenBudgetDialog("daily")}>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => handleOpenBudgetDialog("daily")}
+            >
               Set Daily Budget
             </Button>
-            <Button variant="contained" color="secondary" onClick={() => handleOpenBudgetDialog("weekly")}>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => handleOpenBudgetDialog("weekly")}
+            >
               Set Weekly Budget
             </Button>
-            <Button variant="contained" color="secondary" onClick={() => handleOpenBudgetDialog("monthly")}>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => handleOpenBudgetDialog("monthly")}
+            >
               Set Monthly Budget
             </Button>
           </Col>
@@ -77,15 +117,24 @@ const FinancePage = () => {
         <Row className="mt-4">
           <Col md={12}>
             <Typography variant="h6">Expense Summary</Typography>
-            <p>Daily Expense: ₹{totalDailyExpense} / ₹{dailyBudget}</p>
-            <p>Weekly Expense (Approx): ₹{totalWeeklyExpense} / ₹{weeklyBudget}</p>
-            <p>Monthly Expense (Approx): ₹{totalMonthlyExpense} / ₹{monthlyBudget}</p>
+            <p>
+              Daily Expense: ₹{totalDailyExpense} / ₹{dailyBudget}
+            </p>
+            <p>
+              Weekly Expense (Approx): ₹{totalWeeklyExpense} / ₹{weeklyBudget}
+            </p>
+            <p>
+              Monthly Expense (Approx): ₹{totalMonthlyExpense} / ₹
+              {monthlyBudget}
+            </p>
           </Col>
         </Row>
       </Card>
 
       <Dialog open={openBudgetDialog} onClose={handleCloseBudgetDialog}>
-        <DialogTitle>Set {budgetType.charAt(0).toUpperCase() + budgetType.slice(1)} Budget</DialogTitle>
+        <DialogTitle>
+          Set {budgetType.charAt(0).toUpperCase() + budgetType.slice(1)} Budget
+        </DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -93,7 +142,9 @@ const FinancePage = () => {
             label={`Enter ${budgetType} budget in ₹`}
             type="number"
             fullWidth
-            onChange={(e) => handleBudgetChange(budgetType, parseInt(e.target.value))}
+            onChange={(e) =>
+              handleBudgetChange(budgetType, parseInt(e.target.value))
+            }
           />
         </DialogContent>
         <DialogActions>

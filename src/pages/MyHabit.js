@@ -1,12 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { Card, Typography, Button, TextField, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
+import {
+  Card,
+  Typography,
+  Button,
+  TextField,
+  Checkbox,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
 import { GiHobbitDwelling } from "react-icons/gi";
 import { Container, Row, Col } from "react-bootstrap";
 
 const HabitPage = () => {
   const [habits, setHabits] = useState([
-    { name: "Exercise", completed: false, weeklyRecord: [true, false, true, true, false, true, false] },
-    { name: "Meditation", completed: false, weeklyRecord: [true, true, false, true, true, true, false] }
+    {
+      name: "Exercise",
+      completed: false,
+      weeklyRecord: [true, false, true, true, false, true, false],
+    },
+    {
+      name: "Meditation",
+      completed: false,
+      weeklyRecord: [true, true, false, true, true, true, false],
+    },
   ]);
   const [openHabitDialog, setOpenHabitDialog] = useState(false);
   const [newHabit, setNewHabit] = useState("");
@@ -14,9 +32,11 @@ const HabitPage = () => {
 
   useEffect(() => {
     // Check for any missed habits and alert the user
-    const missedHabits = habits.filter(habit => !habit.completed);
+    const missedHabits = habits.filter((habit) => !habit.completed);
     if (missedHabits.length > 0) {
-      alert("Reminder: You have missed some habits today. Keep up with your goals!");
+      alert(
+        "Reminder: You have missed some habits today. Keep up with your goals!"
+      );
     }
   }, [habits]);
 
@@ -27,7 +47,10 @@ const HabitPage = () => {
   };
 
   const handleAddHabit = () => {
-    setHabits([...habits, { name: newHabit, completed: false, weeklyRecord: Array(7).fill(false) }]);
+    setHabits([
+      ...habits,
+      { name: newHabit, completed: false, weeklyRecord: Array(7).fill(false) },
+    ]);
     setNewHabit("");
     setOpenHabitDialog(false);
   };
@@ -50,8 +73,15 @@ const HabitPage = () => {
 
   return (
     <Container className="mt-4">
-      <Card className="p-4" style={{ backgroundColor: "#e3f2fd", color: "#1565c0", width: '100%' }}>
-        <Typography variant="h4" className="mb-4 d-flex align-items-center" sx={{ lineHeight: 5.235 }}>
+      <Card
+        className="p-4"
+        style={{ backgroundColor: "#e3f2fd", color: "#1565c0", width: "100%" }}
+      >
+        <Typography
+          variant="h4"
+          className="mb-4 d-flex align-items-center"
+          sx={{ lineHeight: 5.235 }}
+        >
           <GiHobbitDwelling className="me-2" /> Habit Tracker
         </Typography>
         <Row>
@@ -65,17 +95,28 @@ const HabitPage = () => {
                     onChange={() => handleToggleHabit(index)}
                     color="primary"
                   />
-                  {habit.name} - {habit.completed ? "Completed" : "Not Completed"}
+                  {habit.name} -{" "}
+                  {habit.completed ? "Completed" : "Not Completed"}
                 </li>
               ))}
             </ul>
-            <Button variant="contained" color="primary" onClick={handleOpenHabitDialog}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleOpenHabitDialog}
+            >
               Add New Habit
             </Button>
           </Col>
           <Col md={6}>
             <Typography variant="h6">Weekly Progress</Typography>
-            <Button variant="contained" color="primary" onClick={handleOpenProgressDialog}>View Progress</Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleOpenProgressDialog}
+            >
+              View Progress
+            </Button>
           </Col>
         </Row>
       </Card>

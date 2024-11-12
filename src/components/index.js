@@ -1,2 +1,2 @@
-export * from "./auth"
-export * from "./inputField"
+export * from "./auth";
+export * from "./inputField";

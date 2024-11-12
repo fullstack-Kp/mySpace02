@@ -1,12 +1,12 @@
 // CustomCardPage.js
-import React, { useState } from 'react';
-import Button from '@mui/material/Button';
+import React, { useState } from "react";
+import Button from "@mui/material/Button";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import TextField from '@mui/material/TextField';
-import IconButton from '@mui/material/IconButton';
-import { AiFillEdit, AiFillSave } from 'react-icons/ai';
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import TextField from "@mui/material/TextField";
+import IconButton from "@mui/material/IconButton";
+import { AiFillEdit, AiFillSave } from "react-icons/ai";
 
 const CustomCardPage = ({ color, icon, title, subtitle, options }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -19,7 +19,7 @@ const CustomCardPage = ({ color, icon, title, subtitle, options }) => {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -41,9 +41,21 @@ const CustomCardPage = ({ color, icon, title, subtitle, options }) => {
   };
 
   return (
-    <div className="box graphBox" style={{ background: `linear-gradient(135deg, ${color[0]}, ${color[1]})`, padding: '16px', borderRadius: '8px' }}>
+    <div
+      className="box graphBox"
+      style={{
+        background: `linear-gradient(135deg, ${color[0]}, ${color[1]})`,
+        padding: "16px",
+        borderRadius: "8px",
+      }}
+    >
       <div className="d-flex align-items-center w-100 bottomEle">
-        <div className="icon" style={{ fontSize: '24px', color: '#FFF', marginRight: '8px' }}>{icon}</div>
+        <div
+          className="icon"
+          style={{ fontSize: "24px", color: "#FFF", marginRight: "8px" }}
+        >
+          {icon}
+        </div>
         <div style={{ flex: 1 }}>
           {isEditMode ? (
             <>
@@ -52,14 +64,18 @@ const CustomCardPage = ({ color, icon, title, subtitle, options }) => {
                 onChange={(e) => setCardTitle(e.target.value)}
                 variant="outlined"
                 size="small"
-                style={{ backgroundColor: 'white', borderRadius: '4px', marginBottom: '4px' }}
+                style={{
+                  backgroundColor: "white",
+                  borderRadius: "4px",
+                  marginBottom: "4px",
+                }}
               />
               <TextField
                 value={cardSubtitle}
                 onChange={(e) => setCardSubtitle(e.target.value)}
                 variant="outlined"
                 size="small"
-                style={{ backgroundColor: 'white', borderRadius: '4px' }}
+                style={{ backgroundColor: "white", borderRadius: "4px" }}
               />
             </>
           ) : (
@@ -69,7 +85,10 @@ const CustomCardPage = ({ color, icon, title, subtitle, options }) => {
             </>
           )}
         </div>
-        <IconButton onClick={isEditMode ? handleSave : handleEditToggle} style={{ color: 'white' }}>
+        <IconButton
+          onClick={isEditMode ? handleSave : handleEditToggle}
+          style={{ color: "white" }}
+        >
           {isEditMode ? <AiFillSave /> : <AiFillEdit />}
         </IconButton>
         <Button className="ml-auto toggleIcon" onClick={handleClick}>
@@ -83,7 +102,7 @@ const CustomCardPage = ({ color, icon, title, subtitle, options }) => {
             paper: {
               style: {
                 maxHeight: 48 * 4.5,
-                width: '20ch',
+                width: "20ch",
               },
             },
           }}
@@ -95,7 +114,7 @@ const CustomCardPage = ({ color, icon, title, subtitle, options }) => {
           ))}
         </Menu>
       </div>
-      <div style={{ marginTop: '16px', color: 'white' }}>
+      <div style={{ marginTop: "16px", color: "white" }}>
         <p>{data}</p>
       </div>
     </div>

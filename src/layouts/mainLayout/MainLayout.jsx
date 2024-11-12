@@ -1,13 +1,14 @@
-import { Button, Card, CardMedia, Typography } from "@mui/material";
+import { Box, Button, Card, CardMedia, Typography } from "@mui/material";
 import Pic from "../../assets/images/pic.png";
-import { useState , useRef , useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { MdUpload } from "react-icons/md";
+import DummyProfile from "../../assets/images/pic.png";
+import Logo from "../../assets/images/logo.png";
 import "./MainLayout.css";
 
 export const MainLayout = ({ component }) => {
-
   const [file, setFile] = useState(null);
-  const [imageURL, setImageURL] = useState(null);
+  const [imageURL, setImageURL] = useState(DummyProfile);
   const fileInputRef = useRef(null);
 
   // Load saved image from localStorage on initial render
@@ -43,7 +44,7 @@ export const MainLayout = ({ component }) => {
       alert("No file selected");
       return;
     }
-    
+
     const formData = new FormData();
     formData.append("file", file);
 
@@ -66,55 +67,66 @@ export const MainLayout = ({ component }) => {
     URL.revokeObjectURL(imageURL);
   };
 
-
-  
   return (
     <Card className="container" elevation={0}>
       <Typography variant="h6" className="logo">
         My Space
       </Typography>
+      <Box component="image" sx={{ height: 54 }} alt="Logo" src={Logo} />
       {component ? component : null}
       {/* <CardMedia className="personalImage" component="img" image={Pic} /> */}
       {imageURL && (
         // <Card style={{ marginTop: "20px" }}>
-          <CardMedia
-            className="personalImage"
-            component="img"
-            image={imageURL}
-            alt="Uploaded Preview"
-            // style={{ height: 200 }}
-          />
+        <CardMedia
+          className="personalImage"
+          component="img"
+          image={imageURL}
+          alt="Uploaded Preview"
+          // style={{ height: 200 }}
+        />
         // </Card>
       )}
       <div className="blueContainer">
         {/* <div className="uploadButton"> */}
-      {/* <Button sx={{display: 'flex' , alignItems: 'center' , backgroundColor: 'wheat' , top: '92%' , left: 4 , width: 50 , height: 50 }} > <MdUpload/></Button> */}
-      {/* <Button variant="contained" sx={{display: 'flex' , alignItems: 'center' , backgroundColor: 'wheat' , top: '92%' , left: 4 , width: 50 , height: 50 }} onClick={handleButtonClick}>  
+        {/* <Button sx={{display: 'flex' , alignItems: 'center' , backgroundColor: 'wheat' , top: '92%' , left: 4 , width: 50 , height: 50 }} > <MdUpload/></Button> */}
+        {/* <Button variant="contained" sx={{display: 'flex' , alignItems: 'center' , backgroundColor: 'wheat' , top: '92%' , left: 4 , width: 50 , height: 50 }} onClick={handleButtonClick}>  
       </Button> */}
-      <div style={{display: 'flex' , justifyContent: 'flex-start' , width: '100%', gap: 15 ,}}>
-      <Button color="white"  sx={{ display: 'flex' , backgroundColor: 'white', top: 40, left:5 }} onClick={handleButtonClick}>
-        Choose File 
-      </Button>
-      <input
-        type="file"
-        ref={fileInputRef}
-        style={{ display: "none" }}
-        onChange={handleFileChange}
-      />
-      {file && <Typography variant="body1">Selected File: {file.name}</Typography>}
-      <Button
-        variant="contained"
-        color="white"
-        sx={{ display: 'flex' , backgroundColor: 'white', top: 40}}
-        onClick={handleUpload}
-        style={{ marginTop: "10px" }}
-      >
-        <MdUpload/>
-      </Button>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-start",
+            width: "100%",
+            gap: 15,
+          }}
+        >
+          <Button
+            color="white"
+            sx={{ display: "flex", backgroundColor: "white", top: 40, left: 5 }}
+            onClick={handleButtonClick}
+          >
+            Choose File
+          </Button>
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            onChange={handleFileChange}
+          />
+          {file && (
+            <Typography variant="body1">Selected File: {file.name}</Typography>
+          )}
+          <Button
+            variant="contained"
+            color="white"
+            sx={{ display: "flex", backgroundColor: "white", top: 40 }}
+            onClick={handleUpload}
+            style={{ marginTop: "10px" }}
+          >
+            <MdUpload />
+          </Button>
+        </div>
+        {/* </div> */}
       </div>
-      {/* </div> */}
-      </div>
-     
     </Card>
   );
 };
