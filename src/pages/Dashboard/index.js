@@ -9,7 +9,8 @@ import MenuItem from '@mui/material/MenuItem';
 import { useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import Button from '@mui/material/Button';
-import { Chart } from "react-google-charts";
+import CustomCardPage from "../CustomCardPage";
+
 
 export const data = [
   ["Year", "Sales", "Expenses"],
@@ -53,22 +54,46 @@ const Dashboard = () => {
   const ITEM_HEIGHT = 48;
 
 
+
+  const [customCardConfig, setCustomCardConfig] = useState({
+    color: ["#e1950e", "#f3cd29"],
+    icon: <MdMood />,
+    title: "Customizable Card",
+    subtitle: "Track your own data",
+    // options: [
+    //   { label: "Last Week Schedule", action: () => console.log("Last Week Schedule") },
+    //   { label: "Last Day Schedule", action: () => console.log("Last Day Schedule") },
+    // ],
+    options:[
+      { label: "Show Last Week Data", action: () => console.log("Showing last week's data") },
+      { label: "Show Last Month Data", action: () => console.log("Showing last month's data") },
+      { label: "Reset Data", action: () => console.log("Data reset") },
+    ],
+  });
+
+
+
   return(
     <>
      <div className="right-content w-100">
       <div className="row dashboardBoxWrapperRow">
         <div className="col-md-8">
           <div className="dashboardBoxWrapper d-flex">
-            <DashboardCard color={["#1da256" , "#48d483"]} icon={<MdSchedule/>} grow={true}/>
-            <DashboardCard color={["#C012e2" , "#eb64fe"]} icon={<MdOutlineAttachMoney/>} />
-            <DashboardCard color={["#2c78e5" , "#60aff5"]} icon={<GiHobbitDwelling/>}/>
-            <DashboardCard color={["#e1950e" , "#f3cd29"]} icon={<MdMood/>} />
+            <DashboardCard color={["#1da256" , "#48d483"]} icon={<MdSchedule/>} grow={true} title="My Schedule" subtitle="Schedule Records" route="/schedule"/>
+            <DashboardCard color={["#C012e2" , "#eb64fe"]} icon={<MdOutlineAttachMoney/>} title="Finance Tracker"
+                    subtitle="Finance Records" route="/finance-tracker" />
+            <DashboardCard color={["#2c78e5" , "#60aff5"]} icon={<GiHobbitDwelling/>} title="Habit Tracker"
+                    subtitle="habit records" route="/habit-tracker"/>
+            <DashboardCard color={["#e1950e" , "#f3cd29"]} icon={<MdMood/>} title="Mood Tracker"
+                    subtitle="mood records"  route="/mood-card"/>
+            {/* <CustomCardPage color={["#e1950e" , "#f3cd29"]} icon={<MdMood/>} title="Mood Tracker"
+                    subtitle="mood records"  route="/mood-card"/> */}
            </div>
         </div>
 
 
         <div className="col-md-4 pl-0">
-        <div className="box graphBox">
+        {/* <div className="box graphBox">
         <div className="d-flex align-items-center w-100 bottomEle">
         <h6 className="text-white mb-0 mt-0">Your Own Card</h6>
         <div className="d-flex w-100">
@@ -101,9 +126,16 @@ const Dashboard = () => {
       </Menu>
         </div>
         
-      </div>
-      
         </div>
+      
+        </div> */}
+        <CustomCardPage
+              color={customCardConfig.color}
+              icon={customCardConfig.icon}
+              title={customCardConfig.title}
+              subtitle={customCardConfig.subtitle}
+              options={customCardConfig.options}
+            />
       </div>
       </div>
 
@@ -111,17 +143,7 @@ const Dashboard = () => {
 
 
 
-    {/* <div className="card shadow border-0 p-3 mt-4">
-    <h3 className="hd"> Best Days</h3>
-
-
-
-    <div className="row">
-      <div className="col">
-        <h4>SHOW BY</h4>
-      </div>
-    </div>
-    </div> */}
+    
 
      
       

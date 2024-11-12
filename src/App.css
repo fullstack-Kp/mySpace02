@@ -354,5 +354,21 @@
       font-size: 18px;
       font-weight: bold;
       color: 403e57;
+
+
+    }
+
+   /* .uploadButton{
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+   }
+
+    .uploadButton svg{
+      font-size: 25px;
+    } */
+
+    .mb-4 d-flex align-items-center .me-2{
+      line-height: 5.235;
     }
 

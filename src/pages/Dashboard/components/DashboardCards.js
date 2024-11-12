@@ -5,16 +5,21 @@ import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { MdSchedule } from "react-icons/md";
 import { CiCreditCard1 } from "react-icons/ci";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import { GiHobbitDwelling } from "react-icons/gi";
 import { MdMood } from "react-icons/md";
 
-const DashboardCard = (props) =>{
+const DashboardCard = ({title, subtitle, color, icon, grow, route}) =>{
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
+    const navigate = useNavigate();
+
+
+
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
@@ -26,27 +31,33 @@ const DashboardCard = (props) =>{
     const ITEM_HEIGHT = 48;
 
 
+     // Function to navigate to the page on card click
+     const handleCardClick = () => {
+      navigate(route);
+  };
+
+
     return(
         <>
    <Button className="dashboardBox" style={{ 
-            backgroundImage: `linear-gradient(to right, ${props.color ?. [0]}, ${props.color?. [1]}) `
-            }}>
+            backgroundImage: `linear-gradient(to right, ${color ?. [0]}, ${color?. [1]}) `
+             }} onClick={handleCardClick}>
 
                 {
-                    props.grow  === true ? <span className="chart"><TrendingUpIcon/></span> :
+                    grow  === true ? <span className="chart"><TrendingUpIcon/></span> :
                     <span className="chart"><TrendingDownIcon/></span>
                 }
             
       <div className="d-flex w-100">
         <div className="col1">
-              <h4 className="text-white mb-0">My Schedule</h4>
-              <span className="text-white"> Assigned Task : 7</span>
+              <h4 className="text-white mb-0">{title}</h4>
+              <span className="text-white"> {subtitle}</span>
         </div>
            <div className="ml-auto">
             {
-                props.icon 
+                icon 
                 ?  
-                <span className="icon">{props.icon ? props.icon : ''}
+                <span className="icon">{icon ? icon : ''}
                 </span> 
                 : 
                 ''

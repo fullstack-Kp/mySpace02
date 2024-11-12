@@ -1,0 +1,40 @@
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    height: 70vh ;
+    max-width: 30vw;
+    position: relative;
+    top: 15vh;
+    right: -10vw;
+}
+
+.signup-title{
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+.signup-subtitle{
+    font-weight: 300;
+    color: #B9B8B8;
+}
+.signup-email{
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+.signup-username{
+    margin-bottom: 50px;
+}
+.password{
+    margin-bottom: 30px;
+}
+.remember-me-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.signup-btn{
+    background-color: #0A2FB6 !important;
+    height: 70px;
+    margin-top: 50px !important;
+    text-transform: capitalize !important;
+    font-size: 18px !important;
+}

@@ -14,6 +14,7 @@ import Logout from '@mui/icons-material/Logout';
 import { useContext, useState } from "react";
 import {MyContext} from '../../App'
 import { MdOutlineMenu } from "react-icons/md";
+import { useEffect } from "react";
 
 const Header = () => {
 
@@ -21,10 +22,19 @@ const Header = () => {
   const [isOpenNotification, setIsOpenNotification] = useState(false);
   const openMyAcc = Boolean(anchorEl);
   const openNotifications = Boolean(isOpenNotification);
+  const [imageURL, setImageURL] = useState(null);
   
 
 const context = useContext(MyContext)
 
+
+useEffect(() => {
+  // Retrieve the saved image from localStorage
+  const savedImage = localStorage.getItem("uploadedImage");
+  if (savedImage) {
+    setImageURL(savedImage);
+  }
+}, []);
 
   const handleOpenMyAcc = (event) => {
     setAnchorEl(event.currentTarget);
@@ -123,7 +133,8 @@ const context = useContext(MyContext)
       </Menu>
               <div className="userImg">
                 <span className="rounded-circle">
-                <img src="https://mironcoder-hotash.netlify.app/images/avatar/01.webp"/>
+                {/* <img src="https://mironcoder-hotash.netlify.app/images/avatar/01.webp"/> */}
+                <img src={imageURL} alt="Uploaded"/>
                  </span>
              </div>
 
