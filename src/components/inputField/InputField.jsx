@@ -1,5 +1,7 @@
 import Icon from "@mui/material/Icon";
 import IconButton from "@mui/material/IconButton";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
@@ -54,11 +56,7 @@ export const InputField = ({
                   onMouseUp={handleMouseUpPassword}
                   edge="end"
                 >
-                  {showPassword ? (
-                    <Icon>visibility_off</Icon>
-                  ) : (
-                    <Icon>visibility</Icon>
-                  )}
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
               </InputAdornment>
             ) : null,

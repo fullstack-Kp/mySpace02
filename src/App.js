@@ -12,17 +12,25 @@ import MyFinance from "./pages/MyFinance";
 import MyMood from "./pages/MyMood";
 import MyHabit from "./pages/MyHabit";
 import CustomCardPage from "./pages/CustomCardPage";
+import { Login } from "./pages/Login";
 
 const MyContext = createContext();
 
 function App() {
   const [isToggleSidebar, setIsToggleSidebar] = useState(false);
   const [themeMode, setThemeMode] = useState(true);
+  const [isRegistered, setIsRegistered] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
+  const [isLogin, setIsLogin] = useState(true);
+  const [loginDetails, setLoginDetails] = useState({});
+  const [registedDetails, setRegisteredDetails] = useState({});
 
   const handleLogout = () => {
-    // Perform any other cleanup, such as removing tokens or clearing local storage
-    localStorage.removeItem("userToken"); // Adjust this key as needed
-    setIsRegistered(false); // Set registration state to false
+    localStorage.removeItem("userToken");
+    localStorage.setItem("isRegistered", JSON.stringify(true));
+    localStorage.setItem("isLoggedIn", JSON.stringify(false));
+    setIsRegistered(true);
+    setIsLoggedIn(false);
   };
 
   const values = {
@@ -45,16 +53,11 @@ function App() {
     }
   }, [isToggleSidebar, themeMode]);
 
-  const [isRegistered, setIsRegistered] = useState(false);
-
-  const [isLogin, setIsLogin] = useState(true);
-  const [loginDetails, setLoginDetails] = useState({});
-  const [registedDetails, setRegisteredDetails] = useState({});
-
-  // const onLoginHandler = (_loginDetails) => {
-  //   setIsLogin(true)
-  //   setLoginDetails({ ..._loginDetails });
-  // };
+  //find if user is logged in or not
+  useEffect(() => {
+    setIsLoggedIn(JSON.parse(localStorage.getItem("isLoggedIn")));
+    setIsRegistered(JSON.parse(localStorage.getItem("isRegistered")));
+  }, []);
 
   // Handle login
   const onLoginHandler = (loginDetails) => {
@@ -75,7 +78,15 @@ function App() {
     setRegisteredDetails({ ..._registeredDetails });
   };
 
-  return isRegistered ? (
+  if (!isRegistered) {
+    return <Register onRegisterHandler={onRegisterHandler} />;
+  }
+
+  if (isRegistered && isLoggedIn === false) {
+    return <Login />;
+  }
+
+  return (
     <BrowserRouter>
       <MyContext.Provider value={values}>
         <div className="main d-flex ">
@@ -101,10 +112,6 @@ function App() {
         <Header />
       </MyContext.Provider>
     </BrowserRouter>
-  ) : (
-    <>
-      <Register onRegisterHandler={onRegisterHandler} />
-    </>
   );
 }
 

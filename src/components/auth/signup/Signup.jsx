@@ -1,40 +1,40 @@
-import { Button,Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { useState } from "react";
 import { InputField } from "../../inputField";
 import "./Signup.css";
 
-export const SignUp = ({onClickRegisterHandler}) => {
+export const SignUp = ({ onClickRegisterHandler }) => {
   const [loginDetails, setLoginDetails] = useState({
     email: "",
     username: "",
-    password: ""
-  })
-
+    password: "",
+  });
 
   const onClickHandler = () => {
-    onClickRegisterHandler?.(loginDetails)
-  }
+    onClickRegisterHandler?.(loginDetails);
+    localStorage.setItem("isRegistered", JSON.stringify(true));
+  };
 
   const onChangeEmailHandler = (event) => {
-    setLoginDetails((prevValue)=> ({
+    setLoginDetails((prevValue) => ({
       ...prevValue,
-      email: event.target.value
-    }))
-  }
+      email: event.target.value,
+    }));
+  };
 
   const onChangeUsernameHandler = (event) => {
-    setLoginDetails((prevValue)=> ({
+    setLoginDetails((prevValue) => ({
       ...prevValue,
-      username: event.target.value
-    }))
-  }
+      username: event.target.value,
+    }));
+  };
 
   const onChangePasswordHandler = (event) => {
-    setLoginDetails((prevValue)=> ({
+    setLoginDetails((prevValue) => ({
       ...prevValue,
-      password: event.target.value
-    }))
-  }
+      password: event.target.value,
+    }));
+  };
 
   return (
     <div className="signup-container">
@@ -70,7 +70,13 @@ export const SignUp = ({onClickRegisterHandler}) => {
         className="password"
       />
 
-      <Button variant="contained" className="signup-btn" onClick={onClickHandler}>Register</Button>
+      <Button
+        variant="contained"
+        className="signup-btn"
+        onClick={onClickHandler}
+      >
+        Register
+      </Button>
     </div>
   );
 };
