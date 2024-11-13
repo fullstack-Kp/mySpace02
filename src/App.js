@@ -13,6 +13,7 @@ import MyMood from "./pages/MyMood";
 import MyHabit from "./pages/MyHabit";
 import CustomCardPage from "./pages/CustomCardPage";
 import { Login } from "./pages/Login";
+import DummyProfile from "./assets/images/pic.png";
 
 const MyContext = createContext();
 
@@ -24,7 +25,7 @@ function App() {
   const [isLogin, setIsLogin] = useState(true);
   const [loginDetails, setLoginDetails] = useState({});
   const [registedDetails, setRegisteredDetails] = useState({});
-  const [profilePic, setProfilePic] = useState("");
+  const [profilePic, setProfilePic] = useState(DummyProfile);
 
   const handleLogout = () => {
     localStorage.removeItem("userToken");
