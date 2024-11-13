@@ -1,36 +1,47 @@
-import { Box, Button, Card, CardMedia, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  Card,
+  CardMedia,
+  IconButton,
+  Snackbar,
+  SnackbarContent,
+  Typography,
+} from "@mui/material";
 import Pic from "../../assets/images/pic.png";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import { MdUpload } from "react-icons/md";
+import Edit from "@mui/icons-material/Edit";
+
 import DummyProfile from "../../assets/images/pic.png";
 import Logo from "../../assets/images/logo.png";
 import "./MainLayout.css";
+import UploadProfileCard from "../../components/cards/uploadProfileCard";
+import { MyContext } from "../../App";
 
 export const MainLayout = ({ component }) => {
-  const [file, setFile] = useState(null);
   const [imageURL, setImageURL] = useState(DummyProfile);
+  const [showUploadPic, setShowUploadPic] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
   const fileInputRef = useRef(null);
-
+  const { setProfilePic, profilePic } = useContext(MyContext);
   // Load saved image from localStorage on initial render
   useEffect(() => {
-    const savedImage = localStorage.getItem("uploadedImage");
-    if (savedImage) {
-      setImageURL(savedImage); // Load image URL from local storage if available
+    if (profilePic) {
+      setImageURL(profilePic);
     }
-  }, []);
+  }, [profilePic]);
 
   // Function to handle file selection
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
-    setFile(selectedFile);
-    // setImageURL(URL.createObjectURL(selectedFile));
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const base64String = reader.result;
-      setImageURL(base64String);
-      localStorage.setItem("uploadedImage", base64String); // Save to localStorage
-    };
-    reader.readAsDataURL(selectedFile);
+
+    if (!selectedFile?.type?.includes("image")) {
+      setShowAlert(true);
+      return;
+    }
+    setProfilePic(URL.createObjectURL(selectedFile));
   };
 
   // Function to handle button click to trigger file input click
@@ -38,95 +49,86 @@ export const MainLayout = ({ component }) => {
     fileInputRef.current.click();
   };
 
-  // Function to handle file upload (e.g., sending it to an API)
-  const handleUpload = () => {
-    if (!file) {
-      alert("No file selected");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("file", file);
-
-    // Replace with actual upload code (e.g., API request)
-    /*
-    fetch("your_upload_endpoint", {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("File uploaded successfully:", data);
-      })
-      .catch((error) => {
-        console.error("Error uploading file:", error);
-      });
-    */
-
-    alert("File ready to upload");
-    URL.revokeObjectURL(imageURL);
-  };
-
   return (
-    <Card className="container" elevation={0}>
-      <Typography variant="h6" className="logo">
-        My Space
-      </Typography>
-      <Box component="image" sx={{ height: 54 }} alt="Logo" src={Logo} />
-      {component ? component : null}
-      {/* <CardMedia className="personalImage" component="img" image={Pic} /> */}
-      {imageURL && (
-        // <Card style={{ marginTop: "20px" }}>
-        <CardMedia
-          className="personalImage"
-          component="img"
-          image={imageURL}
-          alt="Uploaded Preview"
-          // style={{ height: 200 }}
-        />
-        // </Card>
-      )}
-      <div className="blueContainer">
-        {/* <div className="uploadButton"> */}
-        {/* <Button sx={{display: 'flex' , alignItems: 'center' , backgroundColor: 'wheat' , top: '92%' , left: 4 , width: 50 , height: 50 }} > <MdUpload/></Button> */}
-        {/* <Button variant="contained" sx={{display: 'flex' , alignItems: 'center' , backgroundColor: 'wheat' , top: '92%' , left: 4 , width: 50 , height: 50 }} onClick={handleButtonClick}>  
-      </Button> */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-start",
-            width: "100%",
-            gap: 15,
-          }}
-        >
-          <Button
-            color="white"
-            sx={{ display: "flex", backgroundColor: "white", top: 40, left: 5 }}
-            onClick={handleButtonClick}
+    <>
+      <Card
+        sx={{
+          borderRadius: 0,
+        }}
+        className="container"
+        elevation={0}
+      >
+        <Typography variant="h6" className="logo">
+          My Space
+        </Typography>
+        <Box component="image" sx={{ height: 54 }} alt="Logo" src={Logo} />
+        {component ? component : null}
+        {imageURL && (
+          <div
+            style={{
+              position: "relative",
+              display: "flex",
+            }}
           >
-            Choose File
-          </Button>
-          <input
-            type="file"
-            ref={fileInputRef}
-            style={{ display: "none" }}
-            onChange={handleFileChange}
-          />
-          {file && (
-            <Typography variant="body1">Selected File: {file.name}</Typography>
-          )}
-          <Button
-            variant="contained"
-            color="white"
-            sx={{ display: "flex", backgroundColor: "white", top: 40 }}
-            onClick={handleUpload}
-            style={{ marginTop: "10px" }}
+            <CardMedia
+              className="personalImage"
+              component="img"
+              image={imageURL}
+              alt="Uploaded Preview"
+            />
+
+            <Edit
+              style={{
+                position: "relative",
+                top: 120,
+                right: -340,
+                cursor: "pointer",
+                color: "#0A2FB6",
+              }}
+              sx={{
+                fontSize: 40,
+              }}
+              onClick={() => setShowUploadPic(true)}
+            />
+          </div>
+        )}
+        <div className="blueContainer">
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-start",
+              width: "100%",
+              gap: 15,
+            }}
           >
-            <MdUpload />
-          </Button>
+            <input
+              type="file"
+              ref={fileInputRef}
+              style={{ display: "none" }}
+              onChange={handleFileChange}
+            />
+          </div>
         </div>
-        {/* </div> */}
-      </div>
-    </Card>
+        <UploadProfileCard
+          open={showUploadPic}
+          handleClose={() => setShowUploadPic(false)}
+          handleButtonClick={handleButtonClick}
+        />
+      </Card>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={showAlert}
+        onClose={() => setShowAlert(false)}
+      >
+        <Alert
+          onClose={() => setShowAlert(false)}
+          severity="error"
+          variant="filled"
+          sx={{ width: 500 }}
+        >
+          Please select image only
+        </Alert>
+      </Snackbar>
+    </>
   );
 };

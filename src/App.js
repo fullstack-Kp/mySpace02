@@ -24,6 +24,7 @@ function App() {
   const [isLogin, setIsLogin] = useState(true);
   const [loginDetails, setLoginDetails] = useState({});
   const [registedDetails, setRegisteredDetails] = useState({});
+  const [profilePic, setProfilePic] = useState("");
 
   const handleLogout = () => {
     localStorage.removeItem("userToken");
@@ -39,6 +40,8 @@ function App() {
     themeMode,
     setThemeMode,
     handleLogout,
+    profilePic,
+    setProfilePic,
   };
 
   useEffect(() => {
@@ -79,11 +82,19 @@ function App() {
   };
 
   if (!isRegistered) {
-    return <Register onRegisterHandler={onRegisterHandler} />;
+    return (
+      <MyContext.Provider value={values}>
+        <Register onRegisterHandler={onRegisterHandler} />;
+      </MyContext.Provider>
+    );
   }
 
   if (isRegistered && isLoggedIn === false) {
-    return <Login />;
+    return (
+      <MyContext.Provider value={values}>
+        <Login />
+      </MyContext.Provider>
+    );
   }
 
   return (

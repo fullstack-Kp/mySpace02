@@ -28,12 +28,11 @@ const Header = () => {
   const context = useContext(MyContext);
 
   useEffect(() => {
-    // Retrieve the saved image from localStorage
-    const savedImage = localStorage.getItem("uploadedImage");
+    const savedImage = context.profilePic;
     if (savedImage) {
       setImageURL(savedImage);
     }
-  }, []);
+  }, [context.profilePic]);
 
   const handleOpenMyAcc = (event) => {
     setAnchorEl(event.currentTarget);

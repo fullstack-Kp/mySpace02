@@ -86,7 +86,7 @@ const HabitPage = () => {
         </Typography>
         <Row>
           <Col md={6}>
-            <Typography variant="h6">Today's Habits</Typography>
+            <Typography variant="h6">Today&apos;s Habits</Typography>
             <ul className="list-unstyled">
               {habits.map((habit, index) => (
                 <li key={index} className="d-flex align-items-center">

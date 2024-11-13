@@ -1,25 +1,27 @@
 .blueContainer {
-    background-color: #0A2FB6;
-    width: 28vw;
+  background-color: #0a2fb6;
+  width: 28vw;
 }
 
 .personalImage {
-    height: 80vh !important;
-    width: 30vw !important;
-    position: relative;
-    top: 10vh;
-    right: -24vw;
-    border-radius: 20px;
+  height: 80vh !important;
+  width: 30vw !important;
+  position: relative;
+  top: 10vh;
+  right: -24vw;
+  border-radius: 20px;
 }
 
 .logo {
-    padding: 5px !important;
+  padding: 5px !important;
 }
 
 .container {
-   display: flex;
-   justify-content: space-between;
-   width: 100vw;
-   height: 100vh;
-   max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
+  padding: 0;
+  border-radius: 0;
 }

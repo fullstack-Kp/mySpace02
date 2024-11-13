@@ -16,7 +16,6 @@ export const SignIn = ({ onClickLogInHandler }) => {
   };
 
   const onClickHandler = () => {
-    alert(`${loginDetails.password} ${loginDetails.username}`);
     onClickLogInHandler?.(loginDetails);
     localStorage.setItem("isLoggedIn", JSON.stringify(true));
   };

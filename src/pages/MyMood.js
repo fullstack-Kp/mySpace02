@@ -93,7 +93,7 @@ const MoodPage = () => {
         <Row>
           <Col md={6}>
             <Typography variant="h6" style={{ fontWeight: "bold" }}>
-              Today's Mood
+              Today&apos;s Mood
             </Typography>
             <input
               type="text"
