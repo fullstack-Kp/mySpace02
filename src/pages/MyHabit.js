@@ -9,6 +9,8 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import { GiHobbitDwelling } from "react-icons/gi";
 import { Container, Row, Col } from "react-bootstrap";
@@ -29,15 +31,16 @@ const HabitPage = () => {
   const [openHabitDialog, setOpenHabitDialog] = useState(false);
   const [newHabit, setNewHabit] = useState("");
   const [openProgressDialog, setOpenProgressDialog] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     // Check for any missed habits and alert the user
-    const missedHabits = habits.filter((habit) => !habit.completed);
-    if (missedHabits.length > 0) {
-      alert(
-        "Reminder: You have missed some habits today. Keep up with your goals!"
-      );
-    }
+    setTimeout(() => {
+      const missedHabits = habits.filter((habit) => !habit.completed);
+      if (missedHabits.length > 0) {
+        setShowAlert(true);
+      }
+    }, 1000);
   }, [habits]);
 
   const handleToggleHabit = (index) => {
@@ -168,6 +171,20 @@ const HabitPage = () => {
           </Button>
         </DialogActions>
       </Dialog>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={showAlert}
+        onClose={() => setShowAlert(false)}
+      >
+        <Alert
+          onClose={() => setShowAlert(false)}
+          severity="info"
+          variant="filled"
+          sx={{ width: 500 }}
+        >
+          Reminder: You have missed some habits today. Keep up wit your goals!
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };
