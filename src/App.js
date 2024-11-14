@@ -14,12 +14,14 @@ import MyHabit from "./pages/MyHabit";
 import CustomCardPage from "./pages/CustomCardPage";
 import { Login } from "./pages/Login";
 import DummyProfile from "./assets/images/pic.png";
+import Loader from "./components/loader/Loader";
 
 const MyContext = createContext();
 
 function App() {
   const [isToggleSidebar, setIsToggleSidebar] = useState(false);
   const [themeMode, setThemeMode] = useState(true);
+  const [showLoader, setShowLoader] = useState(false);
   const [isRegistered, setIsRegistered] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [profilePic, setProfilePic] = useState(DummyProfile);
@@ -70,41 +72,50 @@ function App() {
   useEffect(() => {
     setIsLoggedIn(JSON.parse(localStorage.getItem("isLoggedIn")));
     setIsRegistered(JSON.parse(localStorage.getItem("isRegistered")));
-    setRegisteredPeople(JSON.parse(localStorage.getItem("registrationList")));
     setUserDetails(JSON.parse(localStorage.getItem("userDetails")));
   }, []);
 
   // Handle login
   const onLoginHandler = (loginDetails) => {
     // Check credentials and update the state if login is successful
-    const registerDetails = registeredPeople.find(
-      (people) =>
-        people.email === loginDetails.username ||
-        people.username === loginDetails.username
-    );
-    if (registerDetails) {
-      const isPasswordCorrect =
-        registerDetails.password === loginDetails.password;
-      if (isPasswordCorrect) {
-        setIsLoggedIn(true);
-        setPasswordError("");
-        localStorage.setItem("isLoggedIn", JSON.stringify(true));
+    setShowLoader(true);
+    setTimeout(() => {
+      const registerDetails = registeredPeople.find(
+        (people) =>
+          people.email === loginDetails.username ||
+          people.username === loginDetails.username
+      );
+      if (registerDetails) {
+        const isPasswordCorrect =
+          registerDetails.password === loginDetails.password;
+        if (isPasswordCorrect) {
+          setShowLoader(false);
+          setIsLoggedIn(true);
+          setPasswordError("");
+          localStorage.setItem("isLoggedIn", JSON.stringify(true));
+        } else {
+          setShowLoader(false);
+          setPasswordError("Password is incorrect");
+        }
       } else {
-        setPasswordError("Password is incorrect");
+        setShowLoader(false);
+        setLoginErrorAlert(true);
       }
-    } else {
-      setLoginErrorAlert(true);
-    }
+    }, 1700);
   };
   const onRegisterHandler = (_registeredDetails) => {
-    setIsRegistered(true);
-    setRegisteredPeople((prevValue) => [...prevValue, _registeredDetails]);
-    setIsLoggedIn(true);
-    setUserDetails(_registeredDetails);
-    localStorage.setItem(
-      "registrationList",
-      JSON.stringify([...registeredPeople, _registeredDetails])
-    );
+    setShowLoader(true);
+    setTimeout(() => {
+      setShowLoader(false);
+      setIsRegistered(true);
+      setRegisteredPeople((prevValue) => [...prevValue, _registeredDetails]);
+      setIsLoggedIn(true);
+      setUserDetails(_registeredDetails);
+      localStorage.setItem(
+        "registrationList",
+        JSON.stringify([...registeredPeople, _registeredDetails])
+      );
+    }, 1500);
   };
 
   const navigateToRegisterScreen = () => {
@@ -116,6 +127,7 @@ function App() {
     return (
       <MyContext.Provider value={values}>
         <Register onRegisterHandler={onRegisterHandler} />;
+        <Loader open={showLoader} />
       </MyContext.Provider>
     );
   }
@@ -130,6 +142,7 @@ function App() {
           passwordError={passwordError}
           navigateToRegisterScreen={navigateToRegisterScreen}
         />
+        <Loader open={showLoader} />
       </MyContext.Provider>
     );
   }

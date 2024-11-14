@@ -118,7 +118,7 @@ export const SignIn = ({
           variant="filled"
           sx={{ width: 500 }}
         >
-          Please register to access your personal space.
+          Account not found! Please register to access your personal space.
         </Alert>
       </Snackbar>
     </>

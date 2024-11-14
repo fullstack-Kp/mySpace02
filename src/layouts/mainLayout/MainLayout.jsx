@@ -19,10 +19,12 @@ import Logo from "../../assets/images/logo.png";
 import "./MainLayout.css";
 import UploadProfileCard from "../../components/cards/uploadProfileCard";
 import { MyContext } from "../../App";
+import Loader from "../../components/loader/Loader";
 
 export const MainLayout = ({ component }) => {
   const [imageURL, setImageURL] = useState(DummyProfile);
   const [showUploadPic, setShowUploadPic] = useState(false);
+  const [showLoader, setShowLoader] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const fileInputRef = useRef(null);
   const { setProfilePic, profilePic } = useContext(MyContext);
@@ -41,7 +43,11 @@ export const MainLayout = ({ component }) => {
       setShowAlert(true);
       return;
     }
-    setProfilePic(URL.createObjectURL(selectedFile));
+    setShowLoader(true);
+    setTimeout(() => {
+      setShowLoader(false);
+      setProfilePic(URL.createObjectURL(selectedFile));
+    }, 2000);
   };
 
   // Function to handle button click to trigger file input click
@@ -128,6 +134,7 @@ export const MainLayout = ({ component }) => {
           Please select image only
         </Alert>
       </Snackbar>
+      <Loader open={showLoader} />
     </>
   );
 };
