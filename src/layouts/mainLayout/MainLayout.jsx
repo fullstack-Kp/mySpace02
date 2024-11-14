@@ -66,7 +66,6 @@ export const MainLayout = ({ component }) => {
         {imageURL && (
           <div
             style={{
-              position: "relative",
               display: "flex",
             }}
           >

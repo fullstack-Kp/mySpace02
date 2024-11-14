@@ -22,10 +22,10 @@ function App() {
   const [themeMode, setThemeMode] = useState(true);
   const [isRegistered, setIsRegistered] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(null);
-  const [isLogin, setIsLogin] = useState(true);
-  const [loginDetails, setLoginDetails] = useState({});
   const [profilePic, setProfilePic] = useState(DummyProfile);
   const [userDetails, setUserDetails] = useState({});
+  const [loginErrorAlert, setLoginErrorAlert] = useState(false);
+  const [passwordError, setPasswordError] = useState("");
   const [registeredPeople, setRegisteredPeople] = useState([
     {
       email: "kannupriya6666@gmail.com",
@@ -77,25 +77,39 @@ function App() {
   // Handle login
   const onLoginHandler = (loginDetails) => {
     // Check credentials and update the state if login is successful
-    // This is a basic check, you might want to replace this with an API call
-    if (
-      loginDetails.username === "user" &&
-      loginDetails.password === "password"
-    ) {
-      setIsLogin(true);
-      setLoginDetails(loginDetails);
+    const registerDetails = registeredPeople.find(
+      (people) =>
+        people.email === loginDetails.username ||
+        people.username === loginDetails.username
+    );
+    if (registerDetails) {
+      const isPasswordCorrect =
+        registerDetails.password === loginDetails.password;
+      if (isPasswordCorrect) {
+        setIsLoggedIn(true);
+        setPasswordError("");
+        localStorage.setItem("isLoggedIn", JSON.stringify(true));
+      } else {
+        setPasswordError("Password is incorrect");
+      }
     } else {
-      alert("Invalid credentials!");
+      setLoginErrorAlert(true);
     }
   };
   const onRegisterHandler = (_registeredDetails) => {
     setIsRegistered(true);
     setRegisteredPeople((prevValue) => [...prevValue, _registeredDetails]);
-    setIsLogin(true);
+    setIsLoggedIn(true);
+    setUserDetails(_registeredDetails);
     localStorage.setItem(
       "registrationList",
       JSON.stringify([...registeredPeople, _registeredDetails])
     );
+  };
+
+  const navigateToRegisterScreen = () => {
+    setIsRegistered(false);
+    localStorage.setItem("isRegistered", JSON.stringify(false));
   };
 
   if (!isRegistered) {
@@ -109,7 +123,13 @@ function App() {
   if (isRegistered && isLoggedIn === false) {
     return (
       <MyContext.Provider value={values}>
-        <Login />
+        <Login
+          onLoginHandler={onLoginHandler}
+          setLoginErrorAlert={setLoginErrorAlert}
+          loginErrorAlert={loginErrorAlert}
+          passwordError={passwordError}
+          navigateToRegisterScreen={navigateToRegisterScreen}
+        />
       </MyContext.Provider>
     );
   }
