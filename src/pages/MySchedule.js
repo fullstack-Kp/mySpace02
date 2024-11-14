@@ -30,8 +30,6 @@ const style = {
   py: 0,
   width: "60%",
   borderRadius: 2,
-  // border: "1px solid",
-  // backgroundColor: "#b1c1fb ",
 };
 
 const SchedulePage = () => {

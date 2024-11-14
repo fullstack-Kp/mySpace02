@@ -10,11 +10,11 @@ import { Register } from "./pages/Register";
 import MySchedule from "./pages/MySchedule";
 import MyFinance from "./pages/MyFinance";
 import MyMood from "./pages/MyMood";
-import MyHabit from "./pages/MyHabit";
 import CustomCardPage from "./pages/CustomCardPage";
 import { Login } from "./pages/Login";
 import DummyProfile from "./assets/images/pic.png";
 import Loader from "./components/loader/Loader";
+import HabitPage from "./pages/MyHabit/MyHabit";
 
 const MyContext = createContext();
 
@@ -164,7 +164,7 @@ function App() {
               <Route path="/dashboard" exact={true} element={<Dashboard />} />
               <Route path="/schedule" element={<MySchedule />} />
               <Route path="/finance-tracker" element={<MyFinance />} />
-              <Route path="/habit-tracker" element={<MyHabit />} />
+              <Route path="/habit-tracker" element={<HabitPage />} />
               <Route path="/mood-card" element={<MyMood />} />
               <Route path="/custom-card" element={<CustomCardPage />} />
             </Routes>
