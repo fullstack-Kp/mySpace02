@@ -15,9 +15,11 @@ export const InputField = ({
   placeholder,
   required,
   inputType = "text",
-
   isPassword = false,
   className,
+  helperText,
+  showError,
+  name,
 }) => {
   const [showPassword, setShowPassword] = useState(isPassword);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -42,8 +44,11 @@ export const InputField = ({
         variant="outlined"
         id="custom-input-field"
         value={value}
+        name={name}
         onChange={onChange}
         required={required}
+        helperText={helperText}
+        error={showError}
         type={showPassword ? "password" : inputType}
         slotProps={{
           input: {

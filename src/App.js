@@ -24,8 +24,15 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [isLogin, setIsLogin] = useState(true);
   const [loginDetails, setLoginDetails] = useState({});
-  const [registedDetails, setRegisteredDetails] = useState({});
   const [profilePic, setProfilePic] = useState(DummyProfile);
+  const [userDetails, setUserDetails] = useState({});
+  const [registeredPeople, setRegisteredPeople] = useState([
+    {
+      email: "kannupriya6666@gmail.com",
+      username: "kannu",
+      password: "Test1234",
+    },
+  ]);
 
   const handleLogout = () => {
     localStorage.removeItem("userToken");
@@ -43,6 +50,8 @@ function App() {
     handleLogout,
     profilePic,
     setProfilePic,
+    registeredPeople,
+    userDetails,
   };
 
   useEffect(() => {
@@ -61,6 +70,8 @@ function App() {
   useEffect(() => {
     setIsLoggedIn(JSON.parse(localStorage.getItem("isLoggedIn")));
     setIsRegistered(JSON.parse(localStorage.getItem("isRegistered")));
+    setRegisteredPeople(JSON.parse(localStorage.getItem("registrationList")));
+    setUserDetails(JSON.parse(localStorage.getItem("userDetails")));
   }, []);
 
   // Handle login
@@ -79,7 +90,12 @@ function App() {
   };
   const onRegisterHandler = (_registeredDetails) => {
     setIsRegistered(true);
-    setRegisteredDetails({ ..._registeredDetails });
+    setRegisteredPeople((prevValue) => [...prevValue, _registeredDetails]);
+    setIsLogin(true);
+    localStorage.setItem(
+      "registrationList",
+      JSON.stringify([...registeredPeople, _registeredDetails])
+    );
   };
 
   if (!isRegistered) {

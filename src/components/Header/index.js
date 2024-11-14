@@ -153,8 +153,8 @@ const Header = () => {
                   </div>
 
                   <div className="userInfo">
-                    <h4>Kannu Priya</h4>
-                    <p className="mb-0"> @priya1234</p>
+                    <h4>{context.userDetails.username}</h4>
+                    <p className="mb-0">{`${context.userDetails.email}`}</p>
                   </div>
                 </Button>
               </div>
